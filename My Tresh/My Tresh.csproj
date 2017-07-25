@@ -7,8 +7,8 @@
     <ProjectGuid>{D93CB416-08A6-4E44-BEEB-B8991EA2D476}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FrOnDaL_Thresh</RootNamespace>
-    <AssemblyName>FrOnDaL Thresh</AssemblyName>
+    <RootNamespace>My_Thresh</RootNamespace>
+    <AssemblyName>My Tresh</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
