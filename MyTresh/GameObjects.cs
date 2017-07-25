@@ -3,8 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-
-namespace FrOnDaL_Lux
+namespace MyTresh
 {
     public static class GameObjects
     {

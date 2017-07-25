@@ -2,7 +2,7 @@
 using Aimtec;
 using Aimtec.SDK.Events;
 
-namespace FrOnDaL_Lux
+namespace MyTresh
 {
     internal class Program
     {
@@ -12,9 +12,9 @@ namespace FrOnDaL_Lux
         }
         private static void OnLoadingComplete()
         {
-            if (ObjectManager.GetLocalPlayer().ChampionName != "Lux") return;
-            var unused = new FrOnDaLLux();
-            Console.WriteLine("FrOnDaL Lux loaded");
+            if (ObjectManager.GetLocalPlayer().ChampionName != "Thresh") return;
+            var unused = new FrOnDaLThresh();
+            Console.WriteLine("MyTresh loaded");
         }
     }
 }
