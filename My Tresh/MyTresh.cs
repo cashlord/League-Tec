@@ -14,7 +14,7 @@ namespace My_Tresh
 {
     internal class MyTresh
     {
-        public static Menu Main = new Menu("Index", "MyTresh", true);
+        public static Menu Main = new Menu("Index", "My Tresh", true);
         public static Orbwalker Orbwalker = new Orbwalker();
         public static Obj_AI_Hero Thresh => ObjectManager.GetLocalPlayer();
         private static Spell _q, _w, _e, _r;
@@ -26,7 +26,7 @@ namespace My_Tresh
             _e = new Spell(SpellSlot.E, 500);
             _r = new Spell(SpellSlot.R, 450);
             _q.SetSkillshot(0.4f, 70f, 1400f, true, SkillshotType.Line);
-            _w.SetSkillshot(0.5f, 50f, 2200f, false, SkillshotType.Circle);
+            _w.SetSkillshot(0.5f, 50f, 2200f, false, SkillshotType.Circle);    
 
             Orbwalker.Attach(Main);
 
@@ -48,7 +48,7 @@ namespace My_Tresh
                 {
                     whiteList.Add(new MenuBool("qWhiteList" + enemies.ChampionName.ToLower(), enemies.ChampionName));
                 }
-            }
+            }              
             Main.Add(whiteList);
             Main.Add(combo);
 
@@ -83,7 +83,7 @@ namespace My_Tresh
             Main.Add(drawings);
             Main.Attach();
 
-            Game.OnUpdate += Game_OnUpdate;
+            Game.OnUpdate += Game_OnUpdate;           
             Render.OnPresent += SpellDraw;
         }
 
@@ -140,22 +140,22 @@ namespace My_Tresh
         {
             var target = TargetSelector.GetTarget(_q.Range);
 
-            if (target == null) return;
+            if (target == null) return;           
             var prediction = _q.GetPrediction(target);
 
             if (Main["combo"]["q"].As<MenuBool>().Enabled && Main["whiteList"]["qWhiteList" + target.ChampionName.ToLower()].As<MenuBool>().Enabled && target.IsInRange(_q.Range) && target.IsValidTarget() && !target.HasBuff("threshQ") && _q.Ready)
             {
                 if (prediction.HitChance >= HitChance.High && target.Distance(Thresh.ServerPosition) > 400)
                 {
-                    _q.Cast(prediction.UnitPosition);
-                }
+                    _q.Cast(prediction.UnitPosition);                                                   
+                }                
             }
             if (target.HasBuff("threshQ") && Main["combo"]["q2"].As<MenuBool>().Enabled && !target.IsUnderEnemyTurret())
             {
                 if (target.Distance(Thresh.ServerPosition) >= 400)
                 {
                     DelayAction.Queue(1000, () => _q.CastOnUnit(Thresh));
-                }
+                }                                                           
             }
             if (target.HasBuff("threshQ") && target.IsUnderEnemyTurret() && Main["combo"]["q2Turret"].As<MenuBool>().Enabled)
             {
@@ -171,12 +171,12 @@ namespace My_Tresh
             var ally = GameObjects.AllyHeroes.Where(x => x.IsInRange(_q.Range) && x.IsAlly && !x.IsMe).FirstOrDefault(x => x.Distance(Thresh.Position) <= 1300);
             var target = TargetSelector.GetTarget(_q.Range);
             if (target == null) return;
-
+            
             if (Main["combo"]["w"].As<MenuBool>().Enabled && ally != null && _w.Ready)
             {
                 if (ally.Distance(Thresh.ServerPosition) <= 700) return;
                 if (target.HasBuff("threshQ"))
-                {
+                {       
                     _w.Cast(ally.ServerPosition);
                 }
                 if (target.Distance(Thresh) <= 400 && Main["combo"]["wAlly"].As<MenuBool>().Enabled)
@@ -202,7 +202,7 @@ namespace My_Tresh
             var ally = GameObjects.AllyHeroes.Where(x => x.IsInRange(_w.Range) && x.IsAlly && !x.IsMe).FirstOrDefault(y => y.Distance(Thresh.Position) <= _w.Range);
             var target = TargetSelector.GetTarget(_e.Range);
             if (target == null) return;
-
+           
             if (Main["combo"]["e"].As<MenuBool>().Enabled && target.IsInRange(_e.Range) && !target.HasBuff("threshQ") && _e.Ready)
             {
                 if (ally == null && target.IsTurret)
@@ -212,7 +212,7 @@ namespace My_Tresh
                 else
                 {
                     _e.Cast(target.Position.Extend(Thresh.ServerPosition, Vector3.Distance(target.Position, Thresh.Position) + 400));
-                }
+                }            
             }
         }
 

@@ -2,7 +2,7 @@
 using Aimtec;
 using Aimtec.SDK.Events;
 
-namespace MyTresh
+namespace My_Tresh
 {
     internal class Program
     {
@@ -13,8 +13,8 @@ namespace MyTresh
         private static void OnLoadingComplete()
         {
             if (ObjectManager.GetLocalPlayer().ChampionName != "Thresh") return;
-            var unused = new FrOnDaLThresh();
-            Console.WriteLine("MyTresh loaded");
+            var unused = new MyTresh();
+            Console.WriteLine("My Tresh loaded");
         }
     }
 }
