@@ -34,13 +34,13 @@ namespace My_Tresh
             var combo = new Menu("combo", "Combo")
             {
                 new MenuBool("q", "Use Combo Q"),
-                new MenuBool("q2Turret", "Use Q2 Under Enemy Turret (On/Off)"),
-                new MenuBool("q2", "Use Combo Q2 (On/Off)"),
                 new MenuBool("w", "Use Combo W"),
-                new MenuBool("wAlly", "AA range in enemy, use Ally W"),
-                //new MenuBool("wJung", "Use W To Ally Jungler"),
                 new MenuBool("e", "Use Combo E"),
-                new MenuSliderBool("r", "Use Combo R - Minimum enemies for R",true, 3, 1, 5),
+                new MenuBool("q2", "Use Combo Q2"),
+                new MenuBool("q2Turret", "Use Q2 Under Enemy Turret's"),
+                new MenuBool("wAlly", "Enemy range AA, use Ally W"),
+                //new MenuBool("wJung", "Use W To Ally Jungler"),
+                new MenuSliderBool("r", "Use Combo R - Minimum enemies",true, 2, 1, 5),
             };
             var whiteList = new Menu("whiteList", "Q White List");
             {
