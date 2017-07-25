@@ -41,9 +41,9 @@ namespace FrOnDaL_Lux
             _w.SetSkillshot(0.25f, 150f, 1200f, false, SkillshotType.Line);
             _e.SetSkillshot(0.25f, 275f, 1050f, false, SkillshotType.Circle);
             _r.SetSkillshot(1f, 150f, float.MaxValue, false, SkillshotType.Circle);
-
+            
             Orbwalker.Attach(Main);
-
+            
             /*Combo Menu*/
             var combo = new Menu("combo", "Combo")
             {
@@ -127,12 +127,12 @@ namespace FrOnDaL_Lux
             if (Main["drawings"]["r"].As<MenuBool>().Enabled)
             {
                 Render.Circle(Lux.Position, _r.Range, 180, Color.Green);
-            }
+            }           
         }
 
         private static void Game_OnUpdate()
         {
-            if (Lux.IsDead || MenuGUI.IsChatOpen()) return;
+            if (Lux.IsDead || MenuGUI.IsChatOpen()) return;        
             switch (Orbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
@@ -149,7 +149,7 @@ namespace FrOnDaL_Lux
             }
             if (Main["harass"]["autoHarass"].As<MenuBool>().Enabled)
             {
-                Harass();
+                Harass();              
             }
             if (Main["combo"]["wAuto"].As<MenuSliderBool>().Enabled && Lux.ManaPercent() > Main["combo"]["wAuto"].As<MenuSliderBool>().Value && Orbwalker.Mode != OrbwalkingMode.Combo)
             {
@@ -166,10 +166,10 @@ namespace FrOnDaL_Lux
                 foreach (var jungSteal in ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsValidTarget(_r.Range) && Lux.GetSpellDamage(x, SpellSlot.R) >= x.Health))
                 {
                     if (jungSteal.UnitSkinName.StartsWith("SRU_Dragon") || jungSteal.UnitSkinName.StartsWith("SRU_Baron") || jungSteal.UnitSkinName.StartsWith("SRU_RiftHerald"))
-                    {
-                        _r.Cast(jungSteal);
+                    {                     
+                            _r.Cast(jungSteal);                                                
                     }
-
+                    
                 }
             }
             if (_r.Ready && Main["combo"]["keyR"].As<MenuKeyBind>().Enabled)
@@ -193,12 +193,12 @@ namespace FrOnDaL_Lux
             if (Main["combo"]["e"].As<MenuBool>().Enabled && _e.Ready)
             {
                 var target = TargetSelector.GetTarget(_e.Range);
-                if (target == null) return;
+                if (target == null) return; 
                 var prediction = _e.GetPrediction(target);
                 if (target.CountEnemyHeroesInRange(_e.Width) >= Main["combo"]["UnitsEhit"].As<MenuSlider>().Value)
                 {
                     if (prediction.HitChance >= HitChance.High)
-                    {
+                    {                       
                         _e.Cast(prediction.CastPosition);
                     }
                 }
@@ -207,9 +207,9 @@ namespace FrOnDaL_Lux
             if (Main["combo"]["q"].As<MenuBool>().Enabled && _q.Ready)
             {
                 var target = TargetSelector.GetTarget(_q.Range);
-                if (target == null) return;
-                _q.Cast(target);
-
+                if (target == null) return;                
+                    _q.Cast(target);
+                
             }
 
             if (Main["combo"]["w"].As<MenuSliderBool>().Enabled && Lux.ManaPercent() > Main["combo"]["w"].As<MenuSliderBool>().Value && _w.Ready)
@@ -277,9 +277,9 @@ namespace FrOnDaL_Lux
                 foreach (var minion in GameObjects.EnemyMinions.Where(x => x.IsValidTarget(_q.Range)).ToList())
                 {
                     if (!minion.IsValidTarget(_q.Range) || minion == null) continue;
-
+                   
                     _q.Cast(minion);
-
+                    
                 }
             }
         }
@@ -326,18 +326,18 @@ namespace FrOnDaL_Lux
             if (Main["drawings"]["drawDamage"].Enabled)
             {
                 ObjectManager.Get<Obj_AI_Base>().Where(h => h is Obj_AI_Hero && h.IsValidTarget() && h.IsValidTarget(1700)).ToList().ForEach(unit =>
-                {
-                    var heroUnit = unit as Obj_AI_Hero;
-                    const int width = 103;
-                    var xOffset = SxOffset(heroUnit);
-                    var yOffset = SyOffset(heroUnit);
-                    var barPos = unit.FloatingHealthBarPosition;
-                    barPos.X += xOffset;
-                    barPos.Y += yOffset;
-                    var drawEndXPos = barPos.X + width * (unit.HealthPercent() / 100);
-                    var drawStartXPos = (float)(barPos.X + (unit.Health > Lux.GetSpellDamage(unit, SpellSlot.R) ? width * ((unit.Health - Lux.GetSpellDamage(unit, SpellSlot.R)) / unit.MaxHealth * 100 / 100) : 0));
-                    Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, 9, true, unit.Health < Lux.GetSpellDamage(unit, SpellSlot.R) ? Color.GreenYellow : Color.ForestGreen);
-                });
+                        {
+                            var heroUnit = unit as Obj_AI_Hero;
+                            const int width = 103;
+                            var xOffset = SxOffset(heroUnit);
+                            var yOffset = SyOffset(heroUnit);
+                            var barPos = unit.FloatingHealthBarPosition;
+                            barPos.X += xOffset;
+                            barPos.Y += yOffset;
+                            var drawEndXPos = barPos.X + width * (unit.HealthPercent() / 100);
+                            var drawStartXPos = (float)(barPos.X + (unit.Health > Lux.GetSpellDamage(unit, SpellSlot.R) ? width *((unit.Health - Lux.GetSpellDamage(unit, SpellSlot.R)) / unit.MaxHealth * 100 / 100) : 0));
+                            Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, 9, true, unit.Health < Lux.GetSpellDamage(unit, SpellSlot.R) ? Color.GreenYellow : Color.ForestGreen);
+                        });
             }
         }
 
@@ -347,7 +347,7 @@ namespace FrOnDaL_Lux
             if (args.InternalName == "qHit")
             {
                 _q.HitChance = (HitChance)args.GetNewValue<MenuList>().Value + 3;
-            }
+            }          
 
             if (args.InternalName == "eHit")
             {
