@@ -16,7 +16,7 @@ namespace My_Ziggs
 {
     internal class MyZiggss
     {
-        public static Menu Main = new Menu("Index", "My Ziggs", true);
+        public static Menu Main = new Menu("Index", "My Ziggss", true);
         public static Orbwalker Orbwalker = new Orbwalker();
         public static Obj_AI_Hero Ziggs => ObjectManager.GetLocalPlayer();
         private static Spell _q, _w, _e, _r;
