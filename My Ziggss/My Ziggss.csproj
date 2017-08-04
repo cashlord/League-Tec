@@ -7,8 +7,8 @@
     <ProjectGuid>{CE75D845-FC56-4899-A567-B5DEB9AB4F2C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FrOnDaL_Lux</RootNamespace>
-    <AssemblyName>FrOnDaL Lux</AssemblyName>
+    <RootNamespace>My_Ziggs</RootNamespace>
+    <AssemblyName>My Ziggss</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
