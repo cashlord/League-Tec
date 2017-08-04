@@ -21,7 +21,7 @@ namespace My_Ziggs
         public static Obj_AI_Hero Ziggs => ObjectManager.GetLocalPlayer();
         private static Spell _q, _w, _e, _r;
         public static readonly List<string> SpecialChampions = new List<string> { "Annie", "Jhin" };
-        
+
         public static int SxOffset(Obj_AI_Hero target)
         {
             return SpecialChampions.Contains(target.ChampionName) ? 1 : 10;
@@ -42,9 +42,9 @@ namespace My_Ziggs
             _w.SetSkillshot(0.25f, 275f, 1750f, false, SkillshotType.Line);
             _e.SetSkillshot(0.5f, 100f, 1750f, false, SkillshotType.Circle);
             _r.SetSkillshot(1f, 500f, float.MaxValue, false, SkillshotType.Circle);
-            
+
             Orbwalker.Attach(Main);
-            
+
             /*Combo Menu*/
             var combo = new Menu("combo", "Combo")
             {
@@ -128,12 +128,12 @@ namespace My_Ziggs
             if (Main["drawings"]["r"].As<MenuBool>().Enabled)
             {
                 Render.Circle(Ziggs.Position, _r.Range, 220, Color.Red);
-            }           
+            }
         }
 
         private static void Game_OnUpdate()
         {
-            if (Ziggs.IsDead || MenuGUI.IsChatOpen()) return;        
+            if (Ziggs.IsDead || MenuGUI.IsChatOpen()) return;
             switch (Orbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
@@ -149,7 +149,7 @@ namespace My_Ziggs
             }
             if (Main["harass"]["autoHarass"].As<MenuBool>().Enabled)
             {
-                Harass();              
+                Harass();
             }
             if (Main["combo"]["wAuto"].As<MenuSliderBool>().Enabled && Ziggs.ManaPercent() > Main["combo"]["wAuto"].As<MenuSliderBool>().Value && Orbwalker.Mode != OrbwalkingMode.Combo)
             {
@@ -166,9 +166,9 @@ namespace My_Ziggs
                 foreach (var jungSteal in ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsValidTarget(_r.Range) && Ziggs.GetSpellDamage(x, SpellSlot.R) >= x.Health))
                 {
                     if (jungSteal.UnitSkinName.StartsWith("SRU_Dragon") || jungSteal.UnitSkinName.StartsWith("SRU_Baron") || jungSteal.UnitSkinName.StartsWith("SRU_RiftHerald"))
-                    {                     
-                            _r.Cast(jungSteal);                                                
-                    }                 
+                    {
+                        _r.Cast(jungSteal);
+                    }
                 }
             }
             if (_r.Ready && Main["combo"]["keyR"].As<MenuKeyBind>().Enabled)
@@ -191,11 +191,11 @@ namespace My_Ziggs
         /*Combo*/
         private static void Combo()
         {
-            var target = TargetSelector.GetTarget(1500) 
+            var target = TargetSelector.GetTarget(1500)
             if (target != null)
             {
                 if (Main["combo"]["e"].As<MenuBool>().Enabled && _e.Ready && target.IsValidTarget(_e.Range))
-                {                                
+                {
                     if (GameObjects.EnemyHeroes.Count(t => t.IsValidTarget(_e.Width, false, false, _e.GetPrediction(target).CastPosition)) >= Main["combo"]["UnitsEhit"].As<MenuSlider>().Value)
                     {
                         _e.Cast(_e.GetPrediction(target).CastPosition);
@@ -204,10 +204,10 @@ namespace My_Ziggs
 
                 if (Main["combo"]["q"].As<MenuBool>().Enabled && _q.Ready && target.IsValidTarget(_q.Range))
                 {
-                    _q.Cast(target);                 
+                    _q.Cast(target);
                 }
             }
-            
+
             if (Main["combo"]["w"].As<MenuSliderBool>().Enabled && Ziggs.ManaPercent() > Main["combo"]["w"].As<MenuSliderBool>().Value && _w.Ready)
             {
                 foreach (var ally in ObjectManager.Get<Obj_AI_Hero>().Where(x => x.IsInRange(_w.Range) && x.IsAlly && x.HealthPercent() <= Main["combo"]["wProtect"].Value && x.CountEnemyHeroesInRange(750) >= 1))
@@ -226,7 +226,7 @@ namespace My_Ziggs
                 {
                     _r.Cast(targetR);
                 }
-                
+
             }
         }
 
@@ -236,7 +236,7 @@ namespace My_Ziggs
             var target = TargetSelector.GetTarget(1500);
             if (target == null) return;
             if (Main["harass"]["e"].As<MenuSliderBool>().Enabled && Ziggs.ManaPercent() > Main["harass"]["e"].As<MenuSliderBool>().Value && _e.Ready && target.IsValidTarget(_e.Range))
-            {                          
+            {
                 if (GameObjects.EnemyHeroes.Count(t => t.IsValidTarget(_e.Width, false, true, _e.GetPrediction(target).CastPosition)) >= Main["harass"]["UnitsEhit"].As<MenuSlider>().Value)
                 {
                     _e.Cast(_e.GetPrediction(target).CastPosition);
@@ -244,8 +244,8 @@ namespace My_Ziggs
             }
 
             if (!Main["harass"]["q"].As<MenuSliderBool>().Enabled || !(Ziggs.ManaPercent() > Main["harass"]["q"].As<MenuSliderBool>().Value) || !_q.Ready || !target.IsValidTarget(_q.Range)) return;
-            {                    
-                    _q.Cast(target);                           
+            {
+                _q.Cast(target);
             }
         }
 
@@ -253,7 +253,7 @@ namespace My_Ziggs
         private static void LaneClear()
         {
             if (Main["laneclear"]["e"].As<MenuSliderBool>().Enabled && Ziggs.ManaPercent() > Main["laneclear"]["e"].As<MenuSliderBool>().Value && _e.Ready)
-            {                
+            {
                 foreach (var targetE in GameObjects.EnemyMinions.Where(x => x.IsValidTarget(_e.Range)))
                 {
                     if (targetE == null) continue;
@@ -268,15 +268,15 @@ namespace My_Ziggs
             {
                 foreach (var minion in GameObjects.EnemyMinions.Where(x => x.IsValidTarget(_q.Range)).ToList())
                 {
-                    if (!minion.IsValidTarget(_q.Range) || minion == null) continue;                 
-                    _q.Cast(minion);                    
+                    if (!minion.IsValidTarget(_q.Range) || minion == null) continue;
+                    _q.Cast(minion);
                 }
             }
         }
 
         /*JungleClear*/
         private static void JungleClear()
-        {          
+        {
             foreach (var targetJ in GameObjects.Jungle.Where(x => !GameObjects.JungleSmall.Contains(x) && (GameObjects.JungleLarge.Contains(x) || GameObjects.JungleLegendary.Contains(x)) && x.IsValidTarget(900)))
             {
                 if (Main["jungleclear"]["q"].As<MenuSliderBool>().Enabled && Ziggs.ManaPercent() > Main["jungleclear"]["q"].As<MenuSliderBool>().Value && _q.Ready)
@@ -284,7 +284,7 @@ namespace My_Ziggs
                     _q.Cast(targetJ);
                 }
 
-                if (Main["jungleclear"]["e"].As<MenuSliderBool>().Enabled && (Ziggs.ManaPercent() > Main["jungleclear"]["e"].As<MenuSliderBool>().Value) && _e.Ready )
+                if (Main["jungleclear"]["e"].As<MenuSliderBool>().Enabled && (Ziggs.ManaPercent() > Main["jungleclear"]["e"].As<MenuSliderBool>().Value) && _e.Ready)
                 {
                     _e.Cast(targetJ.Position);
                 }
@@ -297,18 +297,18 @@ namespace My_Ziggs
             if (Main["drawings"]["drawDamage"].Enabled)
             {
                 ObjectManager.Get<Obj_AI_Base>().Where(h => h is Obj_AI_Hero && h.IsValidTarget() && h.IsValidTarget(1700)).ToList().ForEach(unit =>
-                        {
-                            var heroUnit = unit as Obj_AI_Hero;
-                            const int width = 103;
-                            var xOffset = SxOffset(heroUnit);
-                            var yOffset = SyOffset(heroUnit);
-                            var barPos = unit.FloatingHealthBarPosition;
-                            barPos.X += xOffset;
-                            barPos.Y += yOffset;
-                            var drawEndXPos = barPos.X + width * (unit.HealthPercent() / 100);
-                            var drawStartXPos = (float)(barPos.X + (unit.Health > Ziggs.GetSpellDamage(unit, SpellSlot.R) ? width *((unit.Health - Ziggs.GetSpellDamage(unit, SpellSlot.R)) / unit.MaxHealth * 100 / 100) : 0));
-                            Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, 9, true, unit.Health < Ziggs.GetSpellDamage(unit, SpellSlot.R) ? Color.GreenYellow : Color.ForestGreen);
-                        });
+                {
+                    var heroUnit = unit as Obj_AI_Hero;
+                    const int width = 103;
+                    var xOffset = SxOffset(heroUnit);
+                    var yOffset = SyOffset(heroUnit);
+                    var barPos = unit.FloatingHealthBarPosition;
+                    barPos.X += xOffset;
+                    barPos.Y += yOffset;
+                    var drawEndXPos = barPos.X + width * (unit.HealthPercent() / 100);
+                    var drawStartXPos = (float)(barPos.X + (unit.Health > Ziggs.GetSpellDamage(unit, SpellSlot.R) ? width * ((unit.Health - Ziggs.GetSpellDamage(unit, SpellSlot.R)) / unit.MaxHealth * 100 / 100) : 0));
+                    Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, 9, true, unit.Health < Ziggs.GetSpellDamage(unit, SpellSlot.R) ? Color.GreenYellow : Color.ForestGreen);
+                });
             }
         }
 
@@ -318,7 +318,7 @@ namespace My_Ziggs
             if (args.InternalName == "qHit")
             {
                 _q.HitChance = (HitChance)args.GetNewValue<MenuList>().Value + 3;
-            }          
+            }
 
             if (args.InternalName == "eHit")
             {
@@ -329,6 +329,6 @@ namespace My_Ziggs
             {
                 _r.HitChance = (HitChance)args.GetNewValue<MenuList>().Value + 3;
             }
-        }  
+        }
     }
 }
