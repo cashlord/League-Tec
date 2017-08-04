@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("My Tresh")]
+[assembly: AssemblyTitle("FrOnDaL Lux")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("My Tresh")]
+[assembly: AssemblyProduct("FrOnDaL Lux")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d93cb416-08a6-4e44-beeb-b8991ea2d476")]
+[assembly: Guid("ce75d845-fc56-4899-a567-b5deb9ab4f2c")]
 
 // Version information for an assembly consists of the following four values:
 //

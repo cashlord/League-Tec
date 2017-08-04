@@ -2,7 +2,7 @@
 using Aimtec;
 using Aimtec.SDK.Events;
 
-namespace My_Tresh
+namespace My_Ziggs
 {
     internal class Program
     {
@@ -12,9 +12,9 @@ namespace My_Tresh
         }
         private static void OnLoadingComplete()
         {
-            if (ObjectManager.GetLocalPlayer().ChampionName != "Thresh") return;
-            var unused = new MyTresh();
-            Console.WriteLine("My Tresh loaded");
+            if (ObjectManager.GetLocalPlayer().ChampionName != "Ziggs") return;
+            var unused = new MyZiggss();
+            Console.WriteLine("My Ziggss loaded");
         }
     }
 }
